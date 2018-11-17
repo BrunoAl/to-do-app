@@ -7,41 +7,52 @@ const filterType = {
 }
 
 export default class Filters extends PureComponent {
-  
   state = { filterType }
 
   onChange = (filterFunc, e) => {
     const { name } = e.target
-    this.setState({
-      filterType: {
-        ...filterType,
-        [name]: true
-      }
-    }, () => this.props.onChangeFilterFunc(filterFunc))
+    this.setState(
+      {
+        filterType: {
+          ...filterType,
+          [name]: true
+        }
+      },
+      () => this.props.onChangeFilterFunc(filterFunc)
+    )
   }
 
   render() {
     return (
       <ul className="filters">
         <li>
-          <a href="#/" name="all"
+          <a
+            href="#/"
+            name="all"
             className={this.state.filterType.all ? 'selected' : ''}
             onClick={this.onChange.bind(this, item => item)}
-            >All
+          >
+            All
           </a>
         </li>
         <li>
-          <a href="#/" name="active"
+          <a
+            href="#/"
+            name="active"
             className={this.state.filterType.active ? 'selected' : ''}
             onClick={this.onChange.bind(this, item => !item.isCompleted)}
-            >Active
+          >
+            Active
           </a>
         </li>
         <li>
-          <a href="#/" name="completed"
+          <a
+            href="#/"
+            name="completed"
             className={this.state.filterType.completed ? 'selected' : ''}
             onClick={this.onChange.bind(this, item => item.isCompleted)}
-            >Completed
+          >
+            Completed
           </a>
         </li>
       </ul>

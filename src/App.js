@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Typography } from '@material-ui/core'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { onSubmitSignIn, onSubmitSignUp } from './helpers'
+import Private, { LoggedInContext } from './components/Private'
+import Header from './components/Header'
+import AppBar from './components/AppBar'
 import Todo from './components/Todo'
 import Login from './components/Login'
-import Register from './components/Register'
-import './App.css'
 
 class App extends PureComponent {
   render() {
@@ -11,18 +14,46 @@ class App extends PureComponent {
       <Router>
         <Switch>
           <Route path="/login">
-            <Login />
+            <Header style={{ marginTop: 40 }}>
+              <Login title="Sign In" redirectText="Sign up instead" onSubmit={onSubmitSignIn}>
+                <Link to="/signup">
+                  <Typography variant="overline" gutterBottom>
+                    Sign up instead
+                  </Typography>
+                </Link>
+              </Login>
+            </Header>
           </Route>
-          <Route path="/register">
-            <Register />
+          <Route path="/signup">
+            <Header style={{ marginTop: 40 }}>
+              <Login title="Sign Up" redirectText="Sign in instead" onSubmit={onSubmitSignUp}>
+                <Link to="/signin">
+                  <Typography variant="overline" gutterBottom>
+                    Sign in instead
+                  </Typography>
+                </Link>
+              </Login>
+            </Header>
           </Route>
-          <Route exact path="/">
-            <Todo />
-          </Route>
+          <Private>
+            <Route exact path="/">
+              <LoggedInContext.Consumer>
+                {({ user }) =>
+                  user && user.uid ? (
+                    <AppBar>
+                      <Header>
+                        <Todo user={user} />
+                      </Header>
+                    </AppBar>
+                  ) : null
+                }
+              </LoggedInContext.Consumer>
+            </Route>
+          </Private>
         </Switch>
       </Router>
     )
   }
 }
 
-export default App
+export default React.memo(App)

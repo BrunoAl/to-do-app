@@ -1,13 +1,19 @@
 import React, { PureComponent } from 'react'
-import uniqid from 'uniqid'
+import '../todo.css'
+import { connect } from 'react-redux'
+import * as actions from '../actions/toDoListActions.js'
 import TodoItem from './TodoItem'
 import Filters from './Filters'
 
-export default class Todo extends PureComponent {
+class Todo extends PureComponent {
   state = {
     addInput: '',
-    todoItems: [],
+    editInput: '',
     filterBy: item => item
+  }
+
+  componentDidMount() {
+    this.props.fetchToDos(this.props.user.uid)
   }
 
   onChange = ({ target }) => {
@@ -19,123 +25,61 @@ export default class Todo extends PureComponent {
 
   onAddItem = e => {
     e.preventDefault()
-    this.setState(state => ({
-      todoItems: [
-        ...state.todoItems,
-        {
-          value: state.addInput,
-          isCompleted: false,
-          isEditing: false,
-          id: uniqid()
-        }
-      ],
-      addInput: ''
-    }))
+    this.props.addToDo(
+      {
+        value: this.state.addInput,
+        isCompleted: false,
+        isEditing: false,
+        priority: 2
+      },
+      this.props.user.uid
+    )
+    this.setState({ addInput: '' })
   }
 
-  onRemoveItem = id => {
-    this.setState(state => ({
-      todoItems: [...state.todoItems.filter(item => item.id !== id)]
-    }))
-  }
-
-  onToggleItem = id => {
-    this.setState(state => ({
-      todoItems: [
-        ...state.todoItems.map(item =>
-          item.id !== id
-            ? item
-            : {
-                ...item,
-                isCompleted: !item.isCompleted
-              }
-        )
-      ]
-    }))
-  }
-
-  onEditItem = id => {
-    this.setState(state => ({
-      todoItems: [
-        ...state.todoItems.map(item =>
-          item.id !== id
-            ? item
-            : {
-                ...item,
-                isEditing: !item.isEditing
-              }
-        )
-      ]
-    }))
-  }
-
-  onEditItem = id => {
-    this.setState(state => ({
-      todoItems: [
-        ...state.todoItems.map(item =>
-          item.id !== id
-            ? item
-            : {
-                ...item,
-                isEditing: false
-              }
-        )
-      ]
-    }))
-  }
-
-  onClearCompletedItems = () => {
-    this.setState(state => ({
-      todoItems: [...state.todoItems.filter(item => !item.isCompleted)]
-    }))
-  }
+  onUpdateItemValue = ({ id, ...item }) => this.props.updateToDo(id, item)
 
   render() {
+    const { toDoList } = this.props
+    if (!toDoList || !Array.isArray(toDoList)) return null
     return (
       <div>
-        <header className="header">
-          <h1>todos</h1>
-          <form onSubmit={this.onAddItem}>
-            <input
-              className="new-todo"
-              placeholder="What needs to be done?"
-              name="addInput"
-              value={this.state.addInput}
-              onChange={this.onChange}
-              autoFocus={true}
-            />
-          </form>
-        </header>
+        <form onSubmit={this.onAddItem}>
+          <input
+            className="new-todo"
+            placeholder="What needs to be done?"
+            name="addInput"
+            value={this.state.addInput}
+            onChange={this.onChange}
+            autoFocus={true}
+          />
+        </form>
 
         <section className="main">
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all" />
 
           <ul className="todo-list">
-            {this.state.todoItems.filter(this.state.filterBy).map(item => (
-              <TodoItem
-                key={item.id}
-                item={item}
-                onToggleItem={this.onToggleItem}
-                onEditItem={this.onEditItem.bind(this, item.id)}
-                //onCancelEditing={this.onCancelEditingItem.bind(this, item.id)}
-              />
+            {toDoList.filter(this.state.filterBy).map(item => (
+              <TodoItem key={item.id} item={item} uid={this.props.user.uid} {...this.props} />
             ))}
           </ul>
         </section>
 
         <footer className="footer">
           <span className="todo-count">
-            <strong>{this.state.todoItems.filter(item => !item.isCompleted).length}</strong> left
+            <strong>{toDoList.filter(item => !item.isCompleted).length}</strong> left
           </span>
 
           <Filters onChangeFilterFunc={filter => this.setState({ filterBy: filter })} />
-
-          <button className="clear-completed" onClick={this.onClearCompletedItems}>
-            Clear completed
-          </button>
         </footer>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({ toDoList }) => ({ toDoList })
+export default connect(
+  mapStateToProps,
+  actions
+)(Todo)
