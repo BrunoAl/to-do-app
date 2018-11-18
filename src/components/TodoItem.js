@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Select, MenuItem, IconButton, TextField } from '@material-ui/core'
+import { IconButton, TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import { Delete as DeleteIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
