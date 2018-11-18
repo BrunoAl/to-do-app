@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { IconButton, TextField } from '@material-ui/core'
+import { IconButton, TextField, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import { Delete as DeleteIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
@@ -101,7 +101,13 @@ class TodoItem extends PureComponent {
             <div className={classes.column} />
 
             <div className={classNames(classes.column, classes.helper)}>
-              <TaskProgress item={item} />
+              {item.isCompleted ? (
+                <Typography variant="h6" gutterBottom>
+                  Completed!
+                </Typography>
+              ) : (
+                <TaskProgress item={item} />
+              )}
             </div>
           </ExpansionPanelDetails>
           <Divider />
