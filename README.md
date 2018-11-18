@@ -11,19 +11,22 @@ hosted version: https://chama-to-do-e0da6.firebaseapp.com
 2. yarn && yarn start
 
 ### Process
-### UI
+#### UI
 1. The project was bootstrapped with create-react-app && and http://todomvc.com/ was used as a starting point.
 2. Material Design concepts were used to build the interface.
-### Performance
+#### Performance
 3. The brand new React.lazy and React.Suspense were used for coding splitting, turn on 3g mode on dev tool to check it out!
 4. The new React.memo was used for performance boost, React.PureComponent as well.
-### Engineering
+#### Engineering
 5. Although I found Redux unnecessary for this small project, it was used to connect to firebase using redux-thunk
 6. React context API was used to pass the user info through the components chain.
-### Usability
+#### Usability
 7. My goal was to keep the to-do app simple despite all the requirements: due time, priority selection, delete button, due time indicator. For this reason I used Expansion Panels.
 8. To edit you can double click on a to-do task.
 9. The Icon in the left-hand side of the input "What needs to be done?" is for sort/unsort by priority.
+
+### Improvements
+- Instead of passing the user id to every action call, it'd be better to keep it saved in the redux store or/and localStorage.
 
 ### Must have
 - [x] Sign-in/Sign-out functionality using [Firebase Auth](https://firebase.google.com/docs/auth/);
