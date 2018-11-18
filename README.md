@@ -13,7 +13,7 @@ hosted version: https://chama-to-do-e0da6.firebaseapp.com
 ### Process
 ### UI
 1. The project was bootstrapped with create-react-app && and http://todomvc.com/ was used as a starting point.
-2. Material-ui was used the build the interface.
+2. Material Design concepts were used to build the interface.
 ### Performance
 3. The brand new React.lazy and React.Suspense were used for coding splitting, turn on 3g mode on dev tool to check it out!
 4. The new React.memo was used for performance boost, React.PureComponent as well.
