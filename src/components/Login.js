@@ -4,21 +4,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { TextField, Button, Paper, Snackbar } from '@material-ui/core'
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 600
-  },
-  dense: {
-    marginTop: 19
-  },
-  menu: {
-    width: 200
-  },
   paper: {
     marginTop: 50,
     paddingBottom: 50,

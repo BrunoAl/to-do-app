@@ -5,7 +5,6 @@ export const TOGGLE_EDIT_FIELD = 'TOGGLE_EDIT_FIELD'
 export const EDIT_FIELD_VALUE = 'EDIT_FIELD_VALUE'
 
 export const fetchToDos = uid => async dispatch => {
-  if (!uid) return
   todosRef
     .child(uid)
     .child('todos')

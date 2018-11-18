@@ -6,22 +6,14 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Menu as MenuIcon,
   Typography,
   Toolbar
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 
 const styles = {
-  root: {
-    flexGrow: 1
-  },
   grow: {
     flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
   }
 }
 
@@ -50,9 +42,6 @@ class LoggedAppBar extends PureComponent {
     return (
       <>
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow} />
 
           <div>
