@@ -1,12 +1,14 @@
-import React, { PureComponent } from 'react'
-import { Typography } from '@material-ui/core'
+import React, { PureComponent, lazy, Suspense } from 'react'
+import { Typography, CircularProgress } from '@material-ui/core'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { onSubmitSignIn, onSubmitSignUp } from './helpers'
 import Private, { LoggedInContext } from './components/Private'
 import Header from './components/Header'
-import AppBar from './components/AppBar'
-import Todo from './components/Todo'
 import Login from './components/Login'
+const Todo = lazy(() => import('./components/Todo'))
+const AppBar = lazy(() => import('./components/AppBar'))
+
+const centerStyle = { display: 'flex', alignItems: 'center', justifyContent: 'center' }
 
 class App extends PureComponent {
   render() {
@@ -40,11 +42,19 @@ class App extends PureComponent {
               <LoggedInContext.Consumer>
                 {({ user }) =>
                   user && user.uid ? (
-                    <AppBar>
-                      <Header>
-                        <Todo user={user} />
-                      </Header>
-                    </AppBar>
+                    <Suspense
+                      fallback={
+                        <div style={centerStyle}>
+                          <CircularProgress style={{ marginTop: 60 }} />
+                        </div>
+                      }
+                    >
+                      <AppBar>
+                        <Header>
+                          <Todo user={user} />
+                        </Header>
+                      </AppBar>
+                    </Suspense>
                   ) : null
                 }
               </LoggedInContext.Consumer>
