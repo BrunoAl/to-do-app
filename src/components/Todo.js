@@ -1,14 +1,17 @@
 import React, { PureComponent } from 'react'
 import '../todo.css'
 import { connect } from 'react-redux'
+import { getLocalIsoTime, addHoursToTime } from '../helpers'
 import * as actions from '../actions/toDoListActions.js'
 import TodoItem from './TodoItem'
 import Filters from './Filters'
+import { Tooltip } from '@material-ui/core'
 
 class Todo extends PureComponent {
   state = {
     addInput: '',
     editInput: '',
+    sortByPriority: false,
     filterBy: item => item
   }
 
@@ -17,9 +20,9 @@ class Todo extends PureComponent {
   }
 
   onChange = ({ target }) => {
-    const { name, value } = target
+    const { name, value, type, checked } = target
     this.setState({
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     })
   }
 
@@ -30,17 +33,27 @@ class Todo extends PureComponent {
         value: this.state.addInput,
         isCompleted: false,
         isEditing: false,
-        priority: 2
+        priority: 2,
+        createdAt: getLocalIsoTime(),
+        dueDate: this.defaultDueDate()
       },
       this.props.user.uid
     )
     this.setState({ addInput: '' })
   }
 
+  defaultDueDate = () => {
+    let now = new Date()
+    return addHoursToTime(now, 1)
+  }
+
   onUpdateItemValue = ({ id, ...item }) => this.props.updateToDo(id, item)
+
+  onSortByPriority = (a, b) => a.priority - b.priority
 
   render() {
     const { toDoList } = this.props
+    const { sortByPriority } = this.state
     if (!toDoList || !Array.isArray(toDoList)) return null
     return (
       <div>
@@ -56,13 +69,23 @@ class Todo extends PureComponent {
         </form>
 
         <section className="main">
-          <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all" />
+          <Tooltip title="Sort by priority">
+            <input
+              className="toggle-all"
+              type="checkbox"
+              name="sortByPriority"
+              onChange={this.onChange}
+            />
+          </Tooltip>
 
           <ul className="todo-list">
-            {toDoList.filter(this.state.filterBy).map(item => (
-              <TodoItem key={item.id} item={item} uid={this.props.user.uid} {...this.props} />
-            ))}
+            {toDoList
+              .filter(this.state.filterBy)
+              .sort(sortByPriority ? this.onSortByPriority : item => item)
+              .map(item => (
+                <TodoItem key={item.id} item={item} uid={this.props.user.uid} {...this.props} />
+              ))}
           </ul>
         </section>
 
