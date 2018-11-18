@@ -159,4 +159,4 @@ TodoItem.propsTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(React.memo(TodoItem))
+export default withStyles(styles)(TodoItem)
