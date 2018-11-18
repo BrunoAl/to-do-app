@@ -4,6 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 import { TextField, Button, Paper, Snackbar } from '@material-ui/core'
 
 const styles = theme => ({
+  root: {
+    margin: 'auto',
+    padding: 10,
+    maxWidth: 500
+  },
   paper: {
     marginTop: 50,
     paddingBottom: 50,
@@ -51,7 +56,7 @@ class Login extends PureComponent {
       return <Redirect to="/" />
     }
     return (
-      <div>
+      <div className={classes.root}>
         <Paper className={classes.paper}>
           <form onSubmit={this.onSubmit}>
             <div className="text-center">
