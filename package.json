@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
+    "firebase": "^5.5.8",
     "firebase-tools": "^6.1.0",
     "glamor": "^2.20.40",
     "glamorous": "^4.13.1",
