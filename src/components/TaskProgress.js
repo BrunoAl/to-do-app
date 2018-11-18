@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { Typography, LinearProgress } from '@material-ui/core'
 
 function getTimeLeftUntilDueTime(dueDate) {
@@ -9,7 +10,7 @@ function getTimeProgress(timeElapsedSinceCreation, totalTimeAssigned) {
   return (timeElapsedSinceCreation * 100) / totalTimeAssigned
 }
 
-export default class TaskProgress extends PureComponent {
+class TaskProgress extends PureComponent {
   state = {
     dueIn: null,
     timeProgress: null
@@ -58,3 +59,9 @@ export default class TaskProgress extends PureComponent {
     )
   }
 }
+
+TaskProgress.propTypes = {
+  item: PropTypes.object.isRequired,
+}
+
+export default TaskProgress

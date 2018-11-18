@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { TextField, Button, Paper, Snackbar } from '@material-ui/core'
@@ -61,10 +62,6 @@ class Login extends PureComponent {
           <form onSubmit={this.onSubmit}>
             <div className="text-center">
               <h2>{this.props.title}</h2>
-              {this.props.statusText && (
-                <div className="alert alert-info">{this.props.statusText}</div>
-              )}
-
               <div className="col-md-12">
                 <TextField
                   label="Email"
@@ -107,6 +104,12 @@ class Login extends PureComponent {
       </div>
     )
   }
+}
+
+Login.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default withStyles(styles)(Login)

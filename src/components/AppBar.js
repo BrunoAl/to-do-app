@@ -78,7 +78,8 @@ class LoggedAppBar extends PureComponent {
 }
 
 LoggedAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.element
 }
 
 export default withStyles(styles)(LoggedAppBar)

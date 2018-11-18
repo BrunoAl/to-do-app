@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { IconButton, TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
@@ -141,6 +142,15 @@ class TodoItem extends PureComponent {
       </li>
     )
   }
+}
+
+TodoItem.propsTypes = {
+  item: PropTypes.object.isRequired,
+  updateToDo: PropTypes.func.isRequired,
+  toggleEditField: PropTypes.func.isRequired,
+  removeToDo: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(React.memo(TodoItem))

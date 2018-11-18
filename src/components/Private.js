@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { firebaseAuth } from '../config/firebase'
 import { Redirect } from 'react-router-dom'
 
@@ -38,6 +39,10 @@ class Private extends PureComponent {
       )
     }
   }
+}
+
+Private.propTypes = {
+  children: PropTypes.element
 }
 
 export default Private

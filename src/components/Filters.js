@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
 const filterType = {
   all: false,
@@ -6,7 +7,7 @@ const filterType = {
   active: false
 }
 
-export default class Filters extends PureComponent {
+class Filters extends PureComponent {
   state = { filterType }
 
   onChange = (filterFunc, e) => {
@@ -59,3 +60,9 @@ export default class Filters extends PureComponent {
     )
   }
 }
+
+Filters.propTypes = {
+  onChangeFilterFunc: PropTypes.func.isRequired
+}
+
+export default Filters

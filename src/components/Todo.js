@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import '../todo.css'
 import { connect } from 'react-redux'
 import { getLocalIsoTime, addHoursToTime } from '../helpers'
@@ -99,6 +100,14 @@ class Todo extends PureComponent {
       </div>
     )
   }
+}
+
+Todo.propTypes = {
+  addToDo: PropTypes.func.isRequired,
+  updateToDo: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  toDoList: PropTypes.array.isRequired,
+  fetchTodos: PropTypes.func
 }
 
 const mapStateToProps = ({ toDoList }) => ({ toDoList })

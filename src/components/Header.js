@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
 
-export default function Header(props) {
+function Header(props) {
   return (
     <>
       <header className="header" {...props}>
@@ -13,3 +14,9 @@ export default function Header(props) {
     </>
   )
 }
+
+Header.propTypes = {
+  children: PropTypes.element
+}
+
+export default Header
