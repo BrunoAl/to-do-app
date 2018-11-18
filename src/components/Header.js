@@ -19,4 +19,4 @@ Header.propTypes = {
   children: PropTypes.element
 }
 
-export default Header
+export default React.memo(Header)
