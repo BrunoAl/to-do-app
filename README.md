@@ -27,6 +27,7 @@ hosted version: https://chama-to-do-e0da6.firebaseapp.com
 
 ### Improvements
 - Instead of passing the user id to every action call, it'd be better to keep it saved in the redux store or/and localStorage.
+- The setInterval in the TaskProgress component could lead to some performance issues if there's too much to-dos, it'd probably be better to track it once per minute instead of once per second. But it would require to manually call the update function every time the user change the due date, to keep the "Time left" always up-to-date.
 
 ### Must have
 - [x] Sign-in/Sign-out functionality using [Firebase Auth](https://firebase.google.com/docs/auth/);
