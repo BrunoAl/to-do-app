@@ -23,27 +23,15 @@ hosted version: https://chama-to-do-e0da6.firebaseapp.com
 #### Usability
 7. My goal was to keep the to-do app simple despite all the requirements: due time, priority selection, delete button, due time indicator. For this reason I used Expansion Panels.
 8. To edit you can double click on a to-do task.
-9. The Icon in the left-hand side of the input "What needs to be done?" is for sort/unsort by priority.
+9. The Icon in the left-hand side of the input "What needs to be done?" is for sort by priority.
 
 ### Improvements
 - Instead of passing the user id to every action call, it'd be better to keep it saved in the redux store or/and localStorage.
-- The setInterval in the TaskProgress component could lead to some performance issues if there's too much to-dos, it'd probably be better to track it once per minute instead of once per second. But it would require to manually call the update function every time the user change the due date, to keep the "Time left" always up-to-date.
+- The setInterval in the TaskProgress component could lead to some performance issues if there are too many to-dos, it'd probably be better to track it once per minute instead of once per second. But it would require to manually call the update function every time the user change the due date, to keep the "Time left" always up-to-date.
 - When a to-do is created by default the due date is set by default to one hour ahead, would be nicer if the user could configure it.
-- The "Time left" only shows the minutes left, would be better to also show it in hours and days.
+- The "Time left" only shows the minutes left, would be better to also show hours and days.
+- The toggle button is not visible in firefox.
 
-### Must have
-- [x] Sign-in/Sign-out functionality using [Firebase Auth](https://firebase.google.com/docs/auth/);
-- [x] Use **[Firebase Realtime Database](https://firebase.google.com/docs/database/)** and **Redux** to keep all the TO-DO's;
-- [x] Host your working app on the *[Firebase Hosting environment](https://firebase.google.com/docs/hosting/)*;
-- [x] Assign priority to a TO-DO and sort them by **highest to lowest priority**;
-- [x] Set a due time. Add real-time visual and auditive hints to the TO-DO item that indicate that the due time is near and has passed;
-- [x] Work on Chrome.
-
-### Nice to have
-- [x] Responsive (Mobile and Web);
-- [x] Cross-browser support;
-- [ ] Tests (Unit and/or Acceptance);
-- [x] UI following [Material Design concepts](https://material.io/)
 
 ## Assignment Description
 
@@ -69,7 +57,7 @@ Chama relies on [Firebase](https://firebase.google.com/) to give our dealers a r
 
 ### Nice to have
 - [x] Responsive (Mobile and Web);
-- [x] Cross-browser support;
+- [ ] Cross-browser support;
 - [ ] Tests (Unit and/or Acceptance);
 - [x] UI following [Material Design concepts](https://material.io/)
 
