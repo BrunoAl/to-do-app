@@ -52,9 +52,10 @@ class Login extends PureComponent {
 
   onSubmit = e => {
     e.preventDefault()
+    const {email, password} = e.target.elements
     this.setState({ isSubmitting: true })
     this.props
-      .onSubmit(this.state.email, this.state.password)
+      .onSubmit(email.value, password.value)
       .then(() => {
         this.setState({ redirectToReferrer: true, isSubmitting: false })
       })
@@ -77,28 +78,33 @@ class Login extends PureComponent {
             <div className="text-center">
               <h2>{this.props.title}</h2>
               <div className="col-md-12">
-                <TextField
-                  label="Email"
-                  name="email"
-                  onChange={this.onChange}
-                  style={{ margin: 8 }}
-                  type="email"
-                  margin="normal"
-                />
+                <label>
+                  <TextField
+                    label="Email"
+                    name="email"
+                    onChange={this.onChange}
+                    style={{ margin: 8 }}
+                    type="email"
+                    margin="normal"
+                  />
+                </label>
               </div>
               <div className="col-md-12">
-                <TextField
-                  label="Password"
-                  name="password"
-                  onChange={this.onChange}
-                  style={{ margin: 8 }}
-                  type="password"
-                  margin="normal"
-                />
+                <label>
+                  <TextField
+                    label="Password"
+                    name="password"
+                    onChange={this.onChange}
+                    style={{ margin: 8 }}
+                    type="password"
+                    margin="normal"
+                  />
+                </label>
               </div>
 
               <div className={classes.wrapper}>
                 <Button
+                  data-testid="submitButton"
                   type="submit"
                   variant="contained"
                   color="primary"
