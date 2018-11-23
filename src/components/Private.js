@@ -6,14 +6,21 @@ import { Redirect } from 'react-router-dom'
 export const LoggedInContext = React.createContext({ user: null })
 
 class Private extends PureComponent {
+  _isMounted = false
   state = { user: {} }
 
   componentDidMount() {
+    this._isMounted = true
     this.authListener()
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   authListener = () => {
     firebaseAuth.onAuthStateChanged(user => {
+      if (!this._isMounted) return
       if (user) {
         this.setState({ user })
       } else {

@@ -13,6 +13,8 @@ export function getLocalIsoTime() {
   return localISOTime
 }
 
-export function addHoursToTime(time, hoursToAdd) {
+export function addHoursToTime(referenceTime, hoursToAdd) {
+  const offsetInMilliseconds = new Date().getTimezoneOffset() * 60000
+  const time = new Date(referenceTime - offsetInMilliseconds)
   return new Date(time.setHours(time.getHours() + hoursToAdd)).toISOString().slice(0, -1)
 }

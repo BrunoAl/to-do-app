@@ -50,7 +50,7 @@ class Todo extends PureComponent {
 
   onUpdateItemValue = ({ id, ...item }) => this.props.updateToDo(id, item)
 
-  onSortByPriority = (a, b) => a.priority - b.priority
+  onSortByPriority = (a, b) => b.priority - a.priority
 
   render() {
     const { toDoList } = this.props

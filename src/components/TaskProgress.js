@@ -46,7 +46,7 @@ class TaskProgress extends PureComponent {
     return (
       <>
         <Typography variant="subtitle2" gutterBottom>
-          Due In: {Math.abs(dueIn)} minutes {dueIn < 0 ? 'ago' : ''}
+          {dueIn < 0 ? 'Was due ' : 'Time left: '} {Math.abs(dueIn)} minutes {dueIn < 0 ? 'ago' : ''}
         </Typography>
         <div>
           <LinearProgress

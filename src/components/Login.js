@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { TextField, Button, Paper, Snackbar } from '@material-ui/core'
+import { TextField, Button, Paper, Snackbar, CircularProgress } from '@material-ui/core'
 
 const styles = theme => ({
   root: {
@@ -20,6 +20,17 @@ const styles = theme => ({
   },
   button: {
     margin: 30
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12
+  },
+  wrapper: {
+    margin: 10,
+    position: 'relative',
   }
 })
 
@@ -28,7 +39,8 @@ class Login extends PureComponent {
     email: '',
     password: '',
     redirectToReferrer: false,
-    snackbarMessage: ''
+    snackbarMessage: '',
+    isSubmitting: false
   }
 
   onChange = ({ target }) => {
@@ -40,18 +52,20 @@ class Login extends PureComponent {
 
   onSubmit = e => {
     e.preventDefault()
+    this.setState({ isSubmitting: true })
     this.props
       .onSubmit(this.state.email, this.state.password)
       .then(() => {
-        this.setState({ redirectToReferrer: true })
+        this.setState({ redirectToReferrer: true, isSubmitting: false })
       })
       .catch(err => {
-        this.setState({ snackbarMessage: err.message })
+        this.setState({ snackbarMessage: err.message, isSubmitting: false })
       })
   }
 
   render() {
     const { classes } = this.props
+    const { isSubmitting } = this.state
 
     if (this.state.redirectToReferrer) {
       return <Redirect to="/" />
@@ -83,10 +97,18 @@ class Login extends PureComponent {
                 />
               </div>
 
-              <Button type="submit" variant="contained" color="primary" className={classes.button}>
-                {this.props.title}
-              </Button>
-
+              <div className={classes.wrapper}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  disabled={isSubmitting}
+                >
+                  {this.props.title}
+                </Button>
+                {isSubmitting && <CircularProgress size={24} className={classes.buttonProgress} />}
+              </div>
               {this.props.children}
             </div>
           </form>
@@ -109,7 +131,7 @@ class Login extends PureComponent {
 Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(Login)
